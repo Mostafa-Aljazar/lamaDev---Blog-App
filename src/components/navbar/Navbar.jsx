@@ -1,10 +1,12 @@
 import React from "react";
-import Links from "../links/links";
-
+import Links from "../links/Links";
+import styles from "./navbar.module.css"
 const Navbar = () => {
+
+
   return (
-    <div>
-      <div>Lama dev</div>
+    <div className={styles.container}>
+      <div className={styles.logo}>Lama dev</div>
 
       <div>
       <Links />
