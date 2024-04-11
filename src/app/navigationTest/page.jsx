@@ -7,8 +7,13 @@ const navigationTest = () => {
 
   // This is in Client Side Renderring
 
+<<<<<<< HEAD
   
   const pathname = usePathname();
+=======
+
+  const pathname =usePathname();
+>>>>>>> 1648fef6d214352a7c4210f7c184569dab276b6a
   console.log("pathname => ", pathname);
 
   const searchParam = useSearchParams();
