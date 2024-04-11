@@ -3,7 +3,11 @@ import styles from "./singlePost.module.css";
 import Image from "next/image";
 import PostUser from "@/components/postUser/postUser";
 
-const SinglePostBage = () => {
+const SinglePostBage = ({ params , searchParams}) => {
+  // searchParams in SSR ,but useSearchParams() in CSR
+  console.log(searchParams);
+  
+  console.log(params.slug);
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
