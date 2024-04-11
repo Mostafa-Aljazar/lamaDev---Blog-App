@@ -8,7 +8,7 @@ const navigationTest = () => {
   // This is in Client Side Renderring
 
 
-  const pathname =();
+  const pathname =usePathname();
   console.log("pathname => ", pathname);
 
   const searchParam = useSearchParams();
