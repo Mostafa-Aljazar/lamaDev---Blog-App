@@ -2,7 +2,10 @@ import PostCard from "@/components/postCard/postCard";
 import styles from "./blog.module.css";
 import { getPosts, getPosts2 } from "@/lib/data";
 
-
+export const metadata = {
+  title: "Blog page",
+  description: "Blog Description",
+};
 // const getPostsFack = async () => {
 //   const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
 //   if (!res.ok) {
@@ -12,12 +15,8 @@ import { getPosts, getPosts2 } from "@/lib/data";
 // };
 
 const BlogPage = async () => {
-
-  
-  
   // FETCH Fack DATA WITH IN API
   // const posts = await getPostsFack();
-
 
   // FETCH Fack DATA WITHOUT AN API
   // const posts = await getPosts();
