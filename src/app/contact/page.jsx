@@ -1,17 +1,22 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import styles from "./contact.module.css";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 // 3nd solution => craete a specific component to display SSR
-import { HydrationTest_3rd_Solution } from "@/components/HydrationTest/HydrationTest";
+// import { HydrationTest_3rd_Solution } from "@/components/HydrationTest/HydrationTest";
 
 // 2nd solution => craete a specific component to display SSR
-const HydrationTest2 = dynamic(
-  () => import("@/components/HydrationTest/HydrationTest"),
-  { ssr: false }
-);
+// const HydrationTest2 = dynamic(
+//   () => import("@/components/HydrationTest/HydrationTest"),
+//   { ssr: false }
+// );
+
+export const metadata = {
+  title: "Contact page",
+  description: "Contact Description",
+};
 
 const ContactPage = () => {
   //// Hydration problem
@@ -19,11 +24,11 @@ const ContactPage = () => {
   // console.log(a);
 
   // 1st solution => using useEffect,useState to run in the firt rendering in client side
-  `  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-  `;
+  // `  const [isClient, setIsClient] = useState(false);
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
+  // `;
 
   return (
     <div className={styles.container}>
@@ -57,7 +62,7 @@ const ContactPage = () => {
             rows="10"
             placeholder="Message"
           ></textarea>
-          <button onClick={() => console.log("clicked")}>Send</button>
+          <button >Send</button>
         </form>
       </div>
     </div>

@@ -12,6 +12,19 @@ import { getPost, getPost2 } from "@/lib/data";
 //   return res.json();
 // };
 
+export async function generateMetadata({ params }) {
+  // console.log(params.slug)
+  const post = await getPost2(params.slug);
+  // console.log(post)
+
+  return {
+    title: post.title,
+    description: post.desc,
+  }
+}
+
+
+
 const SinglePostBage = async ({ params, searchParams }) => {
   // searchParams in SSR ,but useSearchParams() in CSR
   // console.log(searchParams);
