@@ -2,14 +2,15 @@ import React, { Suspense } from "react";
 import styles from "./singlePost.module.css";
 import Image from "next/image";
 import PostUser from "@/components/postUser/postUser";
+import { getPost, getPost2 } from "@/lib/data";
 
-const getPost = async (slug) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`);
-  if (!res.ok) {
-    throw new Error("error in fetch data...");
-  }
-  return res.json();
-};
+// const getPostFack = async (slug) => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`);
+//   if (!res.ok) {
+//     // throw new Error("error in fetch data...");
+//   }
+//   return res.json();
+// };
 
 const SinglePostBage = async ({ params, searchParams }) => {
   // searchParams in SSR ,but useSearchParams() in CSR
@@ -17,12 +18,25 @@ const SinglePostBage = async ({ params, searchParams }) => {
   // console.log(params.slug);
 
   const { slug } = params;
-  const post = await getPost(slug);
+  
+  // FETCH Fack DATA WITH IN API
+  // const posts = await getPostFack();
+
+  // FETCH Fack DATA WITH out AN API
+  // const post = await getPost(slug);
+
+  // FETCH DATA WITH OUT API using server actions
+  const post = await getPost2(slug);
   // console.log(post)
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image src="/post.png" alt="" fill className={styles.img} />
+        <Image
+          src={post.img ? post.img : "/post.png"}
+          alt=""
+          fill
+          className={styles.img}
+        />
       </div>
 
       <div className={styles.textContainer}>
@@ -39,7 +53,7 @@ const SinglePostBage = async ({ params, searchParams }) => {
             <span className={styles.detailValue}>post.createdAt</span>
           </div>
         </div>
-        <div className={styles.content}>{post.body}</div>
+        <div className={styles.content}>{post.desc}</div>
       </div>
     </div>
   );

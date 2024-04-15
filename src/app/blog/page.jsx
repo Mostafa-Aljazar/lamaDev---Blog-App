@@ -1,33 +1,40 @@
-// "use client";
 import PostCard from "@/components/postCard/postCard";
-import React from "react";
 import styles from "./blog.module.css";
+import { getPosts, getPosts2 } from "@/lib/data";
 
-const getData = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
-    cache: "no-store",
-    next: {
-      revalidate: 3600,
-    },
-  });
-  if (!res.ok) {
-    throw new Error("error in fetch data...");
-  }
-  return res.json();
-};
+
+// const getPostsFack = async () => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+//   if (!res.ok) {
+//     // throw new Error("error in fetch data...");
+//   }
+//   return res.json();
+// };
 
 const BlogPage = async () => {
-  // FETCH DATA WITH AN API
-  const Posts = await getData();
-  // console.log(posts);
+
+  
+  
+  // FETCH Fack DATA WITH IN API
+  // const posts = await getPostsFack();
+
+
+  // FETCH Fack DATA WITHOUT AN API
+  // const posts = await getPosts();
+
+  // FETCH DATA WITHOUT AN API using server actions
+  const posts = await getPosts2();
+  // console.log(`postsServer : ${posts}`)
   return (
     <div className={styles.container}>
-      {Posts.map((post) => (
-        <div className={styles.post} key={post.id}>
-          <PostCard post={post} />
-        </div>
-      ))}
+      {posts &&
+        posts.map((post) => (
+          <div className={styles.post} key={post.id}>
+            <PostCard post={post} />
+          </div>
+        ))}
     </div>
   );
 };
+
 export default BlogPage;
