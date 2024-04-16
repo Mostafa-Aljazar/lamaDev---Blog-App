@@ -1,11 +1,19 @@
-import React from 'react'
+import { handelGithubLogin, handelLogout } from "@/lib/action";
+import { auth, signIn, signOut } from "@/lib/auth";
+import React from "react";
 
-const LoginPage = () => {
+const LoginPage = async () => {
+
+
+
   return (
     <div>
-    Login Page
+      <form action={handelGithubLogin}>
+        <button>Login with github</button>
+      </form>
+    
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

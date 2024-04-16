@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
+import { signIn, signOut } from "./auth";
 
 
 // Server Actions (add post , delete post , add user , delete user) 
@@ -88,3 +89,15 @@ export async function deleteUser(formData) {
 
   return console.log("Hello world :=>", id);
 }
+
+
+
+export const handelGithubLogin = async () => {
+  "use server";
+  await signIn("github");
+};
+
+export const handelLogout = async () => {
+  "use server";
+  await signOut();
+};

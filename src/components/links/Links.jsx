@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
-import Image from 'next/image';
+import Image from "next/image";
+import { handelLogout } from "@/lib/action";
+import { auth } from "@/lib/auth";
 
 const links = [
   { title: "Home", path: "/" },
@@ -11,12 +13,18 @@ const links = [
   { title: "Blog", path: "/blog" },
 ];
 
-const Links = () => {
+const Links = ({sessionAuth}) => {
   const [open, setOpen] = useState(false);
 
   // TEMPORARY
-  const session = true;
-  const isAdmin = true;
+  // const session = true;
+  // const isAdmin = true;
+
+    // REAL DATA : IF USER LOGIN , PRINT HIS INFO..
+  const session = sessionAuth;
+  const isAdmin = session?.user?.isAdmin;
+
+  console.log(session);
 
   return (
     <div className={styles.container}>
@@ -27,19 +35,22 @@ const Links = () => {
         {session ? (
           <React.Fragment>
             {isAdmin && <NavLink item={{ title: "admin", path: "/admin" }} />}
-            <button className={styles.logout}>Logout</button>
+            <form action={handelLogout}>
+              <button className={styles.logout}>Logout</button>
+            </form>
           </React.Fragment>
         ) : (
           <NavLink item={{ title: "Login", path: "/login" }} />
         )}
       </div>
-    
 
-      <Image  src="/menu.png"
-      width={30}
-      height={30}
-       className={styles.menuButton}
-      onClick={() => setOpen((pre) => !pre)}/>
+      <Image
+        src="/menu.png"
+        width={30}
+        height={30}
+        className={styles.menuButton}
+        onClick={() => setOpen((pre) => !pre)}
+      />
 
       {open && (
         <div className={styles.mobileLinks}>
