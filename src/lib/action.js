@@ -3,6 +3,10 @@ import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 
+
+// Server Actions (add post , delete post , add user , delete user) 
+// without using api routes
+
 export async function addPost(formData) {
   const { title, desc, slug, userId, img } = Object.fromEntries(formData);
 

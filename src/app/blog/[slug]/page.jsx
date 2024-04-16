@@ -12,6 +12,15 @@ import { getPost, getPost2 } from "@/lib/data";
 //   return res.json();
 // };
 
+
+const getPostApi = async (slug) => {
+  const res = await fetch(`http://localhost:3000/api/blog/${slug}`);
+  if (!res.ok) {
+    throw new Error("error in fetch data...");
+  }
+  return res.json();
+};
+
 export async function generateMetadata({ params }) {
   // console.log(params.slug)
   const post = await getPost2(params.slug);
@@ -39,8 +48,12 @@ const SinglePostBage = async ({ params, searchParams }) => {
   // const post = await getPost(slug);
 
   // FETCH DATA WITH OUT API using server actions
-  const post = await getPost2(slug);
+  // const post = await getPost2(slug);
   // console.log(post)
+
+  const post = await getPostApi(params.slug);
+  // console.log("PostApi :",PostApi)
+
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>

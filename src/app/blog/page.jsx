@@ -6,6 +6,7 @@ export const metadata = {
   title: "Blog page",
   description: "Blog Description",
 };
+
 // const getPostsFack = async () => {
 //   const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
 //   if (!res.ok) {
@@ -13,6 +14,14 @@ export const metadata = {
 //   }
 //   return res.json();
 // };
+
+const getPostsApi = async () => {
+  const res = await fetch(`http://localhost:3000/api/blog`);
+  if (!res.ok) {
+    throw new Error("error in fetch posts...");
+  }
+  return res.json();
+};
 
 const BlogPage = async () => {
   // FETCH Fack DATA WITH IN API
@@ -22,12 +31,16 @@ const BlogPage = async () => {
   // const posts = await getPosts();
 
   // FETCH DATA WITHOUT AN API using server actions
-  const posts = await getPosts2();
+  // const posts = await getPosts2();
   // console.log(`postsServer : ${posts}`)
+
+  // FETCH DATA WITHIN AN API ROUTES
+  const postsApi = await getPostsApi();
+  const posts =  postsApi.posts;
+  // console.log("postsApi : ", posts)
   return (
     <div className={styles.container}>
-      {posts &&
-        posts.map((post) => (
+      {posts && posts.map((post) => (
           <div className={styles.post} key={post.id}>
             <PostCard post={post} />
           </div>
