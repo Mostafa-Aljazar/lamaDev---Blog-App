@@ -24,7 +24,7 @@ const Links = ({sessionAuth}) => {
   const session = sessionAuth;
   const isAdmin = session?.user?.isAdmin;
 
-  console.log(session);
+  // console.log(session);
 
   return (
     <div className={styles.container}>
