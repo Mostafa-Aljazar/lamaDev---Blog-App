@@ -101,7 +101,7 @@ export const handelLogout = async () => {
 };
 // 0567053050
 
-export const register = async (formData) => {
+export const register = async (prevState, formData) => {
   const { username, email, password, img, passwordRepeat } =
     Object.fromEntries(formData);
 
@@ -140,7 +140,7 @@ export const register = async (formData) => {
   }
 };
 
-export const login = async (formData) => {
+export const login = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 
   try {
