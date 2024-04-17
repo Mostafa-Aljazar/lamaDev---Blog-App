@@ -1,17 +1,17 @@
-import { handelGithubLogin, handelLogout } from "@/lib/action";
-import { auth, signIn, signOut } from "@/lib/auth";
-import React from "react";
+import { handelGithubLogin } from "@/lib/action";
+import styles from "./login.module.css";
+import LoginForm from "@/components/LoginForm/LoginForm";
 
-const LoginPage = async () => {
-
-
+const LoginPage = () => {
 
   return (
-    <div>
-      <form action={handelGithubLogin}>
-        <button>Login with github</button>
-      </form>
-    
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <form action={handelGithubLogin}>
+          <button className={styles.github}>Login with Github</button>
+        </form>
+        <LoginForm />
+      </div>
     </div>
   );
 };
