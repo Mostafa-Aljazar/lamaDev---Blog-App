@@ -99,7 +99,6 @@ export const handelLogout = async () => {
   "use server";
   await signOut();
 };
-// 0567053050
 
 export const register = async (prevState, formData) => {
   const { username, email, password, img, passwordRepeat } =
@@ -132,6 +131,7 @@ export const register = async (prevState, formData) => {
 
     await newUser.save();
     console.log("saved to db");
+    // await signIn("credentials", { username, password });
 
     return { success: true };
   } catch (err) {
