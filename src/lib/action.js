@@ -2,9 +2,10 @@
 import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
+import { signIn, signOut } from "./auth";
+import bcrypt from "bcryptjs";
 
-
-// Server Actions (add post , delete post , add user , delete user) 
+// Server Actions (add post , delete post , add user , delete user)
 // without using api routes
 
 export async function addPost(formData) {
@@ -88,3 +89,70 @@ export async function deleteUser(formData) {
 
   return console.log("Hello world :=>", id);
 }
+
+export const handelGithubLogin = async () => {
+  "use server";
+  await signIn("github");
+};
+
+export const handelLogout = async () => {
+  "use server";
+  await signOut();
+};
+
+export const register = async (prevState, formData) => {
+  const { username, email, password, img, passwordRepeat } =
+    Object.fromEntries(formData);
+
+  if (password !== passwordRepeat) {
+    return { error: "Passwords do not match" };
+  }
+
+  try {
+    connectToDb();
+
+    const user = await User.findOne({ username });
+
+    if (user) {
+      return { error: "Username already exists" };
+    }
+
+    // To Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({
+      username,
+      email,
+      // password,
+      password: hashedPassword,
+      img,
+    });
+
+    await newUser.save();
+    console.log("saved to db");
+    // await signIn("credentials", { username, password });
+
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
+};
+
+export const login = async (prevState, formData) => {
+  const { username, password } = Object.fromEntries(formData);
+
+  try {
+    await signIn("credentials", { username, password });
+  } catch (err) {
+    console.log(err);
+
+    if (err.message.includes("CredentialsSignin")) {
+      return { error: "Invalid username or password" };
+    }
+    // NEXT_REDIRECT Error and the Solution
+    // return { error: "something went wrong" };
+    throw err;
+  }
+};
